@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier Product</title>
+    <!-- Assuming you're using Bootstrap CSS from CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">Modifier Produit</div>
+                <div class="card-body">
+                    <!-- Assuming you're posting to "/save" for updating the product -->
+                    <form th:action="@{/save}" method="post">
+                        <!-- Hidden input field to send the product ID -->
+                        <input type="hidden" name="id" class="form-control" th:value="${product.id}">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <!-- Input field for editing the address -->
+                            <input type="text" name="name" class="form-control" th:value="${product.name}">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageFileName">Image File Name:</label>
+                            <!-- Input field for editing the image file name -->
+                            <input type="text" name="imageFileName" class="form-control" th:value="${product.imageFileName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <!-- Input field for editing the description -->
+                            <input type="text" name="description" class="form-control" th:value="${product.description}">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <!-- Input field for editing the price -->
+                            <input type="text" name="price" class="form-control" th:value="${product.price}">
+                        </div>
+                        <div class="form-group text-center">
+                            <!-- Submit button for updating the product -->
+                            <button type="submit" class="btn btn-primary">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript libraries (jQuery, Popper.js, Bootstrap JS) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

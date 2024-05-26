@@ -1,0 +1,166 @@
+#cart-icon{
+    cursor: pointer;
+}
+/* cart */
+.cart{
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 360px;
+    min-height: 100vh;
+    padding: 20px;
+    background: whitesmoke;
+    box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
+    transition: 0.3s;
+}
+.cart.active{
+    right: 0;
+}
+.cartt{
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.cartbox{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top:1rem ;
+}
+.detail{
+    padding: 5px;
+}
+.cartprot{
+    text-transform: uppercase;
+}
+
+.cartprice{
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.cartqt{
+    border: 1px solid black;
+    width: 2.5rem;
+    font-size: 1rem;
+    text-align: center;
+    outline-color: red;
+    font-weight: 600;
+}
+
+.rmv{
+    cursor:pointer;
+    position: absolute;
+    top: 19.5%;
+    right: 10%;
+}
+.total{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    border-top:  1px solid black;
+}
+.totalt{
+    font-weight: 700;
+}
+.totalp{
+    margin-left: 0.5rem;
+}
+.btnbuy{
+    display: flex;
+    margin: 2rem auto;
+    padding: 10px 15px;
+    border: none;
+
+    background: rgb(218, 54, 54);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btnbuy:hover{
+    background-color: black;
+}
+.closec{
+    position: absolute;
+    top: 1.5rem;
+    left: 0.7rem;
+    cursor: pointer;
+}
+
+
+.container{
+    position: absolute;
+    top: 20%;
+    left: 45%;
+    color: black;
+}
+.container h2{
+    font-weight: 600;
+    color: red;
+    letter-spacing: 2px;
+
+}
+.container1{
+    padding: 20rem 0 3rem;
+}
+.container2{
+    padding: 8rem 0 3rem;
+}
+.title{
+    font-size: 45px;
+    letter-spacing: 4px;
+    font-style: italic;
+    text-align: center;
+}
+.content{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.content1{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.probox{
+    position: relative;
+    width: 275px;
+    height: auto;
+    margin: 50px 0 0 60px;
+
+}
+.probox:hover{
+    padding: 5px;
+    border: 1px solid transparent;
+    transition: .4s;
+}
+.productimg{
+    width: 100%;
+}
+
+.prodt{
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0.5rem 0;
+}
+.txt{
+    text-align: center;
+    margin-bottom: 2rem;
+
+}
+.price{
+    font-weight: bold;
+}
+.addc{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: beige;
+    padding: 10px;
+    cursor: pointer;
+}
+.addc:hover{
+    background-color: rgb(245, 245, 204);
+}

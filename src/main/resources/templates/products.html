@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- (head content unchanged) -->
+</head>
+<body>
+<!-- (navbar unchanged) -->
+<div class="hero">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-5">
+                <div class="intro-excerpt">
+                    <h1>Modern Interior <span class="d-block">Design Studio</span></h1>
+                    <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada...</p>
+                    <p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="hero-img-wrap">
+                    <img src="/images/couch.png" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h2>Products</h2>
+    <div class="row">
+        <div th:each="product : ${products}" class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <img th:src="@{'/images/' + ${product.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 th:text="${product.name}" class="card-title"></h5>
+                    <p th:text="${product.description}" class="card-text"></p>
+                    <p th:text="${product.price}" class="card-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- (rest of body unchanged) -->
+</body>
+</html>

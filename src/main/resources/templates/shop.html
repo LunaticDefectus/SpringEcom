@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/shop.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100&family=Parisienne&family=Poppins:ital,wght@0,200;0,300;1,100&family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+    <title>Shop</title>
+</head>
+<body>
+<div class="x">
+    <nav>
+        <a href="/home"><label class="logo">DefArtz</label></a>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/feedback" target="_blank">Feedback</a></li>
+        </ul>
+        <img id="cart-icon" src="/images/det/shop.png" alt="">
+        <!-- cart -->
+        <div class="cart">
+            <h2 class="cartt">Your Cart</h2>
+            <div class="cartcontent"></div>
+            <!--Total-->
+            <div class="total">
+                <div class="totalt">Total</div>
+                <div class="totalp">0dhs</div>
+            </div>
+            <!--Button-->
+            <button type="button" class="btnbuy">Buy Now</button>
+            <!--Cart Close-->
+            <img src="/images/det/x.png" class="closec" height="24" width="24" alt="">
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Shop Products</h2>
+    </div>
+
+    <section class="container1">
+        <div class="content">
+            <!-- Products will be populated here by Thymeleaf -->
+            <div th:each="product : ${products}" class="probox">
+                <img th:src="@{'/images/' + ${product.getImageFileName()}}" alt="Product Image" class="productimg">
+                <h2 class="prodt" th:text="${product.name}"></h2>
+                <p class="txt" th:text="${product.description}"></p>
+                <span class="price" th:text="${product.price} + 'dhs'"></span>
+                <img src="/images/det/add.png" class="addc" alt="">
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    var carticon = document.querySelector('#cart-icon');
+    var cart = document.querySelector('.cart');
+    var closecart = document.querySelector('.closec');
+
+    carticon.onclick = function() {
+        cart.classList.add("active");
+    };
+    closecart.onclick = function() {
+        cart.classList.remove("active");
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", ready);
+    } else {
+        ready();
+    }
+
+    function ready() {
+        var removebuttons = document.getElementsByClassName('rmv');
+        console.log(removebuttons);
+        for (var i = 0; i < removebuttons.length; i++) {
+            var button = removebuttons[i];
+            button.addEventListener("click", removeitem);
+        }
+        var qtinputs = document.getElementsByClassName("cartqt");
+        for (var i = 0; i < qtinputs.length; i++) {
+            var input = qtinputs[i];
+            input.addEventListener("change", qtchanged);
+        }
+        var addcart = document.getElementsByClassName('addc');
+        for (var i = 0; i < addcart.length; i++) {
+            var button = addcart[i];
+            button.addEventListener("click", addcartClicked);
+        }
+        document.getElementsByClassName("btnbuy")[0].addEventListener("click", buybuttonclicked);
+    }
+
+    function buybuttonclicked() {
+        alert("Your order is placed");
+        var cartcontent = document.getElementsByClassName("cartcontent")[0];
+        while (cartcontent.hasChildNodes()) {
+            cartcontent.removeChild(cartcontent.firstChild);
+        }
+        updateTotal();
+    }
+
+    function removeitem(event) {
+        var buttonClicked = event.target;
+        buttonClicked.parentElement.remove();
+        updateTotal();
+    }
+
+    function qtchanged(event) {
+        var input = event.target;
+        if (isNaN(input.value) || input.value <= 0) {
+            input.value = 1;
+        }
+        updateTotal();
+    }
+
+    function addcartClicked(event) {
+        var button = event.target;
+        var shopprod = button.parentElement;
+        var title = shopprod.getElementsByClassName("prodt")[0].innerText;
+        var price = shopprod.getElementsByClassName("price")[0].innerText;
+        var productImg = shopprod.getElementsByClassName("productimg")[0].src;
+        addProductToCart(title, price, productImg);
+        updateTotal();
+    }
+
+    function addProductToCart(title, price, productImg) {
+        var cartshopbox = document.createElement("div");
+        cartshopbox.classList.add("cartbox");
+        var cartitems = document.getElementsByClassName("cartcontent")[0];
+        var cartitemsname = cartitems.getElementsByClassName("cartprot");
+        for (var i = 0; i < cartitemsname.length; i++) {
+            if (cartitemsname[i].innerText == title) {
+                alert("You have already added this item to cart");
+                return;
+            }
+        }
+
+        var cartboxcontent = `
+                <img src="${productImg}" height="80" width="80" class="cartimg">
+                <div class="detail">
+                    <div class="cartprot">${title}</div>
+                    <div class="cartprice">${price}</div>
+                    <input type="number" value="1" class="cartqt">
+                </div>
+                <!-- remove -->
+                <img src="/images/det/trash.png" class="rmv">
+            `;
+
+        cartshopbox.innerHTML = cartboxcontent;
+        cartitems.append(cartshopbox);
+        cartshopbox.getElementsByClassName('rmv')[0].addEventListener("click", removeitem);
+        cartshopbox.getElementsByClassName('cartqt')[0].addEventListener("change", qtchanged);
+    }
+
+    function updateTotal() {
+        var cartcontent = document.getElementsByClassName("cartcontent")[0];
+        var cartBoxes = cartcontent.getElementsByClassName("cartbox");
+        var total = 0;
+        for (var i = 0; i < cartBoxes.length; i++) {
+            var cartBox = cartBoxes[i];
+            var priceElement = cartBox.getElementsByClassName("cartprice")[0];
+            var quantElement = cartBox.getElementsByClassName("cartqt")[0];
+            var price = parseFloat(priceElement.innerText.replace("dhs", ""));
+            var qt = quantElement.value;
+            total = total + (price * qt);
+        }
+        document.getElementsByClassName("totalp")[0].innerText = total + "dhs";
+    }
+</script>
+</body>
+</html>

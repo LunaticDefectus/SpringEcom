@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feedback Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientmanagement">Clients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/productsManagement">Products</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mt-5">
+    <h1 class="text-3xl font-bold mb-4">Feedback Management</h1>
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table class="min-w-full leading-normal">
+            <thead>
+            <tr>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Product Satisfaction</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Service Satisfaction</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Team Satisfaction</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Improvement Suggestions</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Contact Representative</th>
+                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="feedback : ${listFeedbacks}">
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" th:text="${feedback.id}"></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" th:text="${feedback.productSatisfaction}"></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" th:text="${feedback.serviceSatisfaction}"></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" th:text="${feedback.teamSatisfaction}"></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" th:text="${feedback.improvementSuggestions}"></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" th:text="${feedback.email}"></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" th:text="${feedback.contactRepresentative ? 'Yes' : 'No'}"></td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <form th:action="@{/delete}" method="post">
+                        <input type="hidden" th:value="${feedback.id}" name="id"/>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

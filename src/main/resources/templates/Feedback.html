@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            margin-bottom: 10px;
+        }
+        .logo h1 {
+            font-size: 24px;
+            color: #3b5d50;
+            margin: 0;
+        }
+        .feedback-text {
+            background-color: #f0e8e8;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .feedback-text p {
+            font-size: 16px;
+            color: black;
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            text-align: center;
+            padding: 10px;
+        }
+        th {
+            color: Black;
+            font-weight: normal;
+        }
+        td:first-child {
+            text-align: left;
+            color: black;
+        }
+        input[type="radio"] {
+            transform: scale(1.5);
+            margin: 0 10px;
+        }
+        input[type="radio"]:checked {
+            accent-color: #3b5d50;
+        }
+        textarea, input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            margin-top: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .contact-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .submit-group {
+            text-align: center;
+        }
+        .submit-group button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #3b5d50;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-group button:hover {
+            background-color: #1d3e31;
+        }
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <h1>Defartz<span>.</span></h1>
+        </div>
+        <div class="feedback-text">
+            <p>We value your feedback.</p>
+            <p>Please complete the following form and help us improve our customer experience.</p>
+        </div>
+    </div>
+    <form th:action="@{/submitFeedback}" th:object="${feedback}" method="post">
+        <table>
+            <tr>
+                <th></th>
+                <th>Very Satisfied</th>
+                <th>Satisfied</th>
+                <th>Neutral</th>
+                <th>Unsatisfied</th>
+                <th>Very Unsatisfied</th>
+            </tr>
+            <tr>
+                <td>How satisfied are you with our product?</td>
+                <td><input type="radio" th:field="*{productSatisfaction}" value="very_satisfied"></td>
+                <td><input type="radio" th:field="*{productSatisfaction}" value="satisfied"></td>
+                <td><input type="radio" th:field="*{productSatisfaction}" value="neutral"></td>
+                <td><input type="radio" th:field="*{productSatisfaction}" value="unsatisfied"></td>
+                <td><input type="radio" th:field="*{productSatisfaction}" value="very_unsatisfied"></td>
+            </tr>
+            <tr>
+                <td>How satisfied are you with our service?</td>
+                <td><input type="radio" th:field="*{serviceSatisfaction}" value="very_satisfied"></td>
+                <td><input type="radio" th:field="*{serviceSatisfaction}" value="satisfied"></td>
+                <td><input type="radio" th:field="*{serviceSatisfaction}" value="neutral"></td>
+                <td><input type="radio" th:field="*{serviceSatisfaction}" value="unsatisfied"></td>
+                <td><input type="radio" th:field="*{serviceSatisfaction}" value="very_unsatisfied"></td>
+            </tr>
+            <tr>
+                <td>How satisfied are you with our team?</td>
+                <td><input type="radio" th:field="*{teamSatisfaction}" value="very_satisfied"></td>
+                <td><input type="radio" th:field="*{teamSatisfaction}" value="satisfied"></td>
+                <td><input type="radio" th:field="*{teamSatisfaction}" value="neutral"></td>
+                <td><input type="radio" th:field="*{teamSatisfaction}" value="unsatisfied"></td>
+                <td><input type="radio" th:field="*{teamSatisfaction}" value="very_unsatisfied"></td>
+            </tr>
+        </table>
+        <div class="form-group">
+            <label for="improve">Tell us how we can improve</label>
+            <textarea id="improve" th:field="*{improvementSuggestions}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" required>
+        </div>
+        <div class="contact-group">
+            <label>Would you like a representative to contact you?</label>
+            <div>
+                <label><input type="radio" th:field="*{contactRepresentative}" value="true"> Yes</label>
+                <label><input type="radio" th:field="*{contactRepresentative}" value="false"> No</label>
+            </div>
+        </div>
+        <div class="submit-group">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <div class="message" th:if="${message}">
+        <p th:text="${message}"></p>
+    </div>
+</div>
+</body>
+</html>
